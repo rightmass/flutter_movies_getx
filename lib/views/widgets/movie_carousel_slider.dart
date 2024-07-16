@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../models/movie_model.dart';
 import '../../utils/constants.dart';
+import '../detail_view.dart';
 import 'image_error_widget.dart';
 
 class MovieCarouselSlider extends StatelessWidget {
@@ -21,7 +23,7 @@ class MovieCarouselSlider extends StatelessWidget {
             itemCount: movies.length,
             itemBuilder: (context, index, realIndex) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () => Get.toNamed(DetailView.routeName, arguments: movies[index]),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: CachedNetworkImage(

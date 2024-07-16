@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../models/movie_model.dart';
 import '../../utils/constants.dart';
+import '../detail_view.dart';
 import 'image_error_widget.dart';
 
 class MovieHorizontalList extends StatelessWidget {
@@ -17,13 +19,16 @@ class MovieHorizontalList extends StatelessWidget {
   Widget build(BuildContext context) {
     return movies.isNotEmpty
         ? SizedBox(
-            height: 200,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              itemCount: movies.length,
-              itemBuilder: (context, index) => Padding(
+      height: 200,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          itemCount: movies.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () => Get.toNamed(DetailView.routeName, arguments: movies[index]),
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
@@ -31,18 +36,20 @@ class MovieHorizontalList extends StatelessWidget {
                     width: 140,
                     child: CachedNetworkImage(
                       imageUrl:
-                          '${Constants.imageBaseUrl}${movies[index].posterPath}',
+                      '${Constants.imageBaseUrl}${movies[index].posterPath}',
                       placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
+                      const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) =>
-                          const ImageErrorWidget(),
+                      const ImageErrorWidget(),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
-            ),
-          )
+            );
+          }
+      ),
+    )
         : Container();
   }
 }
