@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import 'bindings/home_binding.dart';
 import 'views/home_view.dart';
 
 void main() {
@@ -11,13 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomeView(),
+    return GetMaterialApp(
+      title: 'Flutter Movies',
+      theme: ThemeData.dark(),
+      getPages: [
+        GetPage(name: HomeView.routeName, page: () => const HomeView(), binding: HomeBinding()),
+      ],
+      initialRoute: HomeView.routeName,
     );
   }
 }
