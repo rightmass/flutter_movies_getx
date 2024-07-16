@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/movie_model.dart';
 import '../../utils/constants.dart';
+import 'image_error_widget.dart';
 
 class MovieCarouselSlider extends StatelessWidget {
   final List<MovieModel> movies;
@@ -29,7 +30,7 @@ class MovieCarouselSlider extends StatelessWidget {
                     placeholder: (context, url) =>
                         const Center(child: CircularProgressIndicator()),
                     errorWidget: (context, url, error) =>
-                        const Icon(Icons.error, size: 40),
+                        const ImageErrorWidget(),
                     fit: BoxFit.cover,
                   ),
                 ),

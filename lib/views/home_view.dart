@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../view_models/home_view_model.dart';
 import 'widgets/movie_carousel_slider.dart';
+import 'widgets/movie_horizontal_list.dart';
 
 class HomeView extends GetView<HomeViewModel> {
   const HomeView({super.key});
@@ -16,22 +17,60 @@ class HomeView extends GetView<HomeViewModel> {
       appBar: AppBar(
         title: Text(
           'Flutter Movies',
-          style: GoogleFonts.calligraffitti(
-            fontSize: 24,
+          style: GoogleFonts.oswald(
+            fontSize: 28,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Obx(
-              () => MovieCarouselSlider(movies: controller.nowPlayingMovies.value),
-            ),
-            const SizedBox(height: 16),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(
+                () => MovieCarouselSlider(movies: controller.nowPlayingMovies.value),
+              ),
+              const SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Text(
+                  'Popular',
+                  style: GoogleFonts.oswald(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Obx(
+                () => MovieHorizontalList(movies: controller.popularMovies.value),
+              ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Text(
+                  'Top Rated',
+                  style: GoogleFonts.oswald(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Obx(
+                    () => MovieHorizontalList(movies: controller.topRatedMovies.value),
+              ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Text(
+                  'Upcoming',
+                  style: GoogleFonts.oswald(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Obx(
+                    () => MovieHorizontalList(movies: controller.upcomingMovies.value),
+              ),
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );

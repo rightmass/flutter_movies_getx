@@ -33,4 +33,55 @@ class MovieProvider extends GetConnect {
       return [];
     }
   }
+
+  Future<List<MovieModel>> getPopularMovies() async {
+    final response = await get(
+      '/popular',
+      query: {
+        'language': 'ko-KR',
+        'region': 'KR',
+      },
+      decoder: (json) => MovieResponseModel.fromJson(json),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body?.results ?? [];
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<MovieModel>> getTopRatedMovies() async {
+    final response = await get(
+      '/top_rated',
+      query: {
+        'language': 'ko-KR',
+        'region': 'KR',
+      },
+      decoder: (json) => MovieResponseModel.fromJson(json),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body?.results ?? [];
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<MovieModel>> getUpcomingMovies() async {
+    final response = await get(
+      '/upcoming',
+      query: {
+        'language': 'ko-KR',
+        'region': 'KR',
+      },
+      decoder: (json) => MovieResponseModel.fromJson(json),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body?.results ?? [];
+    } else {
+      return [];
+    }
+  }
 }
