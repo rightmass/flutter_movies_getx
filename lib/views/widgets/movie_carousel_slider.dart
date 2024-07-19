@@ -18,35 +18,32 @@ class MovieCarouselSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return movies.isNotEmpty
-        ? CarouselSlider.builder(
-            itemCount: movies.length,
-            itemBuilder: (context, index, realIndex) {
-              return GestureDetector(
-                onTap: () => Get.toNamed(DetailView.routeName, arguments: movies[index]),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        '${Constants.imageBaseUrl}${movies[index].posterPath}',
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const ImageErrorWidget(),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            },
-            options: CarouselOptions(
-              aspectRatio: 0.9,
-              enlargeFactor: 0.2,
-              viewportFraction: 0.75,
-              autoPlay: true,
-              enlargeCenterPage: true,
-              autoPlayAnimationDuration: const Duration(seconds: 1),
+    return CarouselSlider.builder(
+      itemCount: movies.length,
+      itemBuilder: (context, index, realIndex) {
+        return GestureDetector(
+          onTap: () =>
+              Get.toNamed(DetailView.routeName, arguments: movies[index]),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: CachedNetworkImage(
+              imageUrl: '${Constants.imageBaseUrl}${movies[index].posterPath}',
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const ImageErrorWidget(),
+              fit: BoxFit.cover,
             ),
-          )
-        : Container();
+          ),
+        );
+      },
+      options: CarouselOptions(
+        aspectRatio: 0.9,
+        enlargeFactor: 0.2,
+        viewportFraction: 0.75,
+        autoPlay: true,
+        enlargeCenterPage: true,
+        autoPlayAnimationDuration: const Duration(seconds: 1),
+      ),
+    );
   }
 }

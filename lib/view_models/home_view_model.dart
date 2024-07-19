@@ -10,29 +10,35 @@ class HomeViewModel extends GetxController {
   final RxList<MovieModel> popularMovies = <MovieModel>[].obs;
   final RxList<MovieModel> topRatedMovies = <MovieModel>[].obs;
   final RxList<MovieModel> upcomingMovies = <MovieModel>[].obs;
+  final RxBool isLoading = false.obs;
 
   @override
   void onInit() async {
-    getNowPlayingMovies();
-    getPopularMovies();
-    getTopRatedMovies();
-    getUpcomingMovies();
+    isLoading.value = true;
+    await Future.wait([
+      getNowPlayingMovies(),
+      getPopularMovies(),
+      getTopRatedMovies(),
+      getUpcomingMovies(),
+    ]);
+    isLoading.value = false;
+
     super.onInit();
   }
 
-  void getNowPlayingMovies() async {
+  Future<void> getNowPlayingMovies() async {
     nowPlayingMovies.value = await _provider.getNowPlayingMovies();
   }
 
-  void getPopularMovies() async {
+  Future<void> getPopularMovies() async {
     popularMovies.value = await _provider.getPopularMovies();
   }
 
-  void getTopRatedMovies() async {
+  Future<void> getTopRatedMovies() async {
     topRatedMovies.value = await _provider.getTopRatedMovies();
   }
 
-  void getUpcomingMovies() async {
+  Future<void> getUpcomingMovies() async {
     upcomingMovies.value = await _provider.getUpcomingMovies();
   }
 }

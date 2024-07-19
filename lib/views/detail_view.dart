@@ -47,7 +47,7 @@ class DetailView extends GetView<DetailViewModel> {
                         '${Constants.imageBaseUrl}${controller.movie.backdropPath}',
                     placeholder: (context, url) =>
                         const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => Container(),
+                    errorWidget: (context, url, error) => const SizedBox.shrink(),
                     fit: BoxFit.cover,
                   ),
                 ),

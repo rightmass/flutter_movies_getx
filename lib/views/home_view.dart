@@ -24,54 +24,69 @@ class HomeView extends GetView<HomeViewModel> {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(
-                () => MovieCarouselSlider(movies: controller.nowPlayingMovies.value),
+      body: Stack(
+        children: [
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Obx(
+                    () => controller.nowPlayingMovies.isNotEmpty
+                        ? MovieCarouselSlider(
+                            movies: controller.nowPlayingMovies.value)
+                        : const SizedBox.shrink(),
+                  ),
+                  const SizedBox(height: 16),
+                  Obx(
+                    () => controller.popularMovies.isNotEmpty
+                        ? MovieHorizontalList(
+                            title: 'Popular',
+                            movies: controller.popularMovies.value,
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  Obx(
+                    () => controller.topRatedMovies.isNotEmpty
+                        ? MovieHorizontalList(
+                            title: 'Top Rated',
+                            movies: controller.topRatedMovies.value,
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  Obx(
+                    () => controller.upcomingMovies.isNotEmpty
+                        ? MovieHorizontalList(
+                            title: 'Upcoming',
+                            movies: controller.upcomingMovies.value,
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  const SizedBox(height: 32),
+                ],
               ),
-              const SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Text(
-                  'Popular',
-                  style: GoogleFonts.oswald(fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Obx(
-                () => MovieHorizontalList(movies: controller.popularMovies.value),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Text(
-                  'Top Rated',
-                  style: GoogleFonts.oswald(fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Obx(
-                    () => MovieHorizontalList(movies: controller.topRatedMovies.value),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Text(
-                  'Upcoming',
-                  style: GoogleFonts.oswald(fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Obx(
-                    () => MovieHorizontalList(movies: controller.upcomingMovies.value),
-              ),
-              const SizedBox(height: 32),
-            ],
+            ),
           ),
-        ),
+          Obx(
+            () => Offstage(
+              offstage: !controller.isLoading.value,
+              child: const Stack(
+                children: [
+                  Opacity(
+                    opacity: 0.7,
+                    child: ModalBarrier(
+                      dismissible: false,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
