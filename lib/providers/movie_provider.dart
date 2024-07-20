@@ -84,4 +84,18 @@ class MovieProvider extends GetConnect {
       return [];
     }
   }
+
+  Future<List<MovieModel>> getSimilarMoviesById(int id) async {
+    final response = await get(
+      '/$id/similar',
+      query: {'language': 'ko-KR'},
+      decoder: (json) => MovieResponseModel.fromJson(json),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body?.results ?? [];
+    } else {
+      return [];
+    }
+  }
 }

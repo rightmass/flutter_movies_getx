@@ -23,7 +23,7 @@ class MovieCarouselSlider extends StatelessWidget {
       itemBuilder: (context, index, realIndex) {
         return GestureDetector(
           onTap: () =>
-              Get.toNamed(DetailView.routeName, arguments: movies[index]),
+              Get.toNamed(DetailView.routeName, arguments: movies[index], preventDuplicates: false),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: CachedNetworkImage(

@@ -42,7 +42,7 @@ class MovieHorizontalList extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () =>
-                    Get.toNamed(DetailView.routeName, arguments: movies[index]),
+                    Get.toNamed(DetailView.routeName, arguments: movies[index], preventDuplicates: false),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
                   child: ClipRRect(

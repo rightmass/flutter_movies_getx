@@ -5,12 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../utils/constants.dart';
 import '../view_models/detail_view_model.dart';
+import 'widgets/movie_vertical_grid.dart';
 import 'widgets/rounded_close_button.dart';
 
 class DetailView extends GetView<DetailViewModel> {
   const DetailView({super.key});
 
   static const routeName = '/detail';
+
+  @override
+  String? get tag => '${Get.arguments.id}';
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class DetailView extends GetView<DetailViewModel> {
                 title: Text(
                   controller.movie.title ?? '',
                   style: GoogleFonts.sunflower(
-                    fontSize: 17,
+                    fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -47,7 +51,8 @@ class DetailView extends GetView<DetailViewModel> {
                         '${Constants.imageBaseUrl}${controller.movie.backdropPath}',
                     placeholder: (context, url) =>
                         const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => const SizedBox.shrink(),
+                    errorWidget: (context, url, error) =>
+                        const SizedBox.shrink(),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -58,6 +63,7 @@ class DetailView extends GetView<DetailViewModel> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       color: Colors.white10,
@@ -82,10 +88,25 @@ class DetailView extends GetView<DetailViewModel> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    Text(controller.movie.overview ?? ''),
+                    const SizedBox(height: 12),
+                    Text(
+                      controller.movie.overview ?? '',
+                      style: GoogleFonts.nanumGothic(fontSize: 16),
+                    ),
+                    const Divider(height: 40),
+                    Text(
+                      'Similar',
+                      style: GoogleFonts.oswald(fontSize: 20),
+                    )
                   ],
                 ),
+              ),
+            ),
+            Obx(
+              () => SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                sliver:
+                    MovieVerticalGrid(movies: controller.similarMovies.value),
               ),
             ),
           ],
