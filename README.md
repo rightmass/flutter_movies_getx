@@ -3,7 +3,7 @@
 ## Screenshot
 |Home|Detail|
 |---|---|
-|![Simulator Screenshot - iPhone 15 - 2024-07-17 at 10 25 14](https://github.com/user-attachments/assets/5115c35d-5718-455c-9419-c2aba02bfb37)|![Simulator Screenshot - iPhone 15 - 2024-07-17 at 10 26 42](https://github.com/user-attachments/assets/a774e03d-279e-4a54-9a9a-b46581d6f664)|
+|![Simulator Screenshot - iPhone 15 - 2024-07-17 at 10 25 14](https://github.com/user-attachments/assets/5115c35d-5718-455c-9419-c2aba02bfb37)|![Simulator Screenshot - iPhone 15 - 2024-07-21 at 01 10 48](https://github.com/user-attachments/assets/5d3373d8-dded-4e29-8123-5210d6251d10)|
 
 ## Environment
 ```
